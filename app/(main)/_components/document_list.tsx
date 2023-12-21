@@ -78,7 +78,8 @@ const DocumentList = ({
                 onExpand={() => onExpand(document._id)}
                 expanded={expanded[document._id]}
                 />
-                {expanded[document._id] && (
+                { // Recursive React HTML
+                expanded[document._id] && (
                     <DocumentList 
                         parentDocumentId={document._id}
                         level={level + 1}
