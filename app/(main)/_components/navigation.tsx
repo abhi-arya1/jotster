@@ -1,20 +1,23 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronsLeft, MenuIcon, PlusCircle, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useRef, useState, useEffect } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user_item";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Item } from "./item";
+import { toast } from "sonner";
 
 const Navigation = () => {
     const pathname = usePathname(); 
     const isMobile = useMediaQuery("(max-width: 768px)");
 
     //TODO: fix later
-    const documents = useQuery(api.documents.get)
+    const documents = useQuery(api.documents.get);
+    const create = useMutation(api.documents.create);
 
     const isResizingRef = useRef(false); 
     const sidebarRef = useRef<ElementRef<"aside">>(null); 
@@ -28,6 +31,7 @@ const Navigation = () => {
         } else {
             resetWidth();
         }
+
     /* trunk-ignore(eslint/react-hooks/exhaustive-deps) */
     }, [isMobile]);
 
@@ -97,6 +101,15 @@ const Navigation = () => {
         }
     }
 
+    const handleCreate = () => {
+        const promise = create({ title: "Untitled" });
+        toast.promise(promise, {
+            loading: "Creating New Note...",
+            success: "Created New Note",
+            error: "Failed to create note",
+        })
+    }
+
     return ( 
         <>
         <aside
@@ -118,6 +131,17 @@ const Navigation = () => {
 
             <div>
                <UserItem />
+               <Item
+               label="Search"
+               icon={Search}
+               isSearch
+               onClick={() => {}}
+               />
+               <Item
+               onClick={handleCreate}
+               label="Add New"
+               icon={PlusCircle}
+               />
             </div>
 
             <div className="mt-4">
