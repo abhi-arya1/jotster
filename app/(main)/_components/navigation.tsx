@@ -11,6 +11,7 @@ import { api } from "@/convex/_generated/api";
 import { Item } from "./item";
 import { toast } from "sonner";
 import DocumentList from "./document_list";
+import { useSearch } from "@/hooks/use_search";
 
 import {
     Popover,
@@ -139,7 +140,7 @@ const Navigation = () => {
                         label="Search"
                         icon={Search}
                         isSearch
-                        onClick={() => { }}
+                        onClick={useSearch().onOpen}
                     />
                     <Item
                         label="Settings"
