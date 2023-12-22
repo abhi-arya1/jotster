@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useRef, useState, useEffect } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -15,10 +15,7 @@ import DocumentList from "./document_list";
 const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
-
-    //TODO: fix later
     const create = useMutation(api.documents.create);
-
     const isResizingRef = useRef(false);
     const sidebarRef = useRef<ElementRef<"aside">>(null);
     const navbarRef = useRef<ElementRef<"div">>(null);
@@ -151,6 +148,11 @@ const Navigation = () => {
 
                 <div className="mt-4">
                     <DocumentList />
+                    <Item 
+                    onClick={handleCreate} 
+                    icon={Plus}
+                    label="Add a page"
+                    />
                 </div>
 
                 <div
