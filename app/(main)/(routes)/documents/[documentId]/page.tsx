@@ -1,7 +1,9 @@
+
+
 const DocumentIdPage = () => {
     return ( 
         <div>
-            DocumentId
+            {/* {DocumentId} */}
         </div>
      );
 }

@@ -231,7 +231,14 @@ export const update = mutation({
         const userId = identity.subject; 
 
         const { id, ...rest } = args; 
+        
+        const existingDoc = await ctx.db.get(args.id); 
 
+        if (!existingDoc) { throw new Error("Not Found!") }
+        if (existingDoc.userId !== userId) { throw new Error("Unauthorized"); }
 
+        const document = await ctx.db.patch(args.id, {...rest,})
+
+        return document; 
     }
 })
