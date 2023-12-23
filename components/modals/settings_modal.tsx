@@ -29,7 +29,7 @@ export const SettingsModal = () => {
                         <span
                         className="text-[0.8rem] text-muted-foreground"
                         >
-                            Customize Jotster's UI
+                            Customize the Jotster UI
                         </span>
                     </div>
                     <ModeToggle />
