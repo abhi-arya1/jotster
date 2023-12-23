@@ -12,6 +12,7 @@ import { Item } from "./item";
 import { toast } from "sonner";
 import DocumentList from "./document_list";
 import { useSearch } from "@/hooks/use_search";
+import { useSettings } from "@/hooks/use_settings";
 
 import {
     Popover,
@@ -145,7 +146,7 @@ const Navigation = () => {
                     <Item
                         label="Settings"
                         icon={Settings}
-                        onClick={() => { }}
+                        onClick={useSettings().onOpen}
                     />
                     <Item
                         label="Add New"
