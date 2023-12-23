@@ -3,7 +3,7 @@
 import { Doc } from "@/convex/_generated/dataModel"
 
 interface ToolbarProps { 
-    initialData = Doc<"documents">;
+    initialData: Doc<"documents">;
     preview?: boolean; 
 };
 
