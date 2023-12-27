@@ -8,7 +8,7 @@ import {
 
 import { useSettings } from "@/hooks/use_settings";
 import { Label } from "@/components/ui/label";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggle } from "@/components/mode_toggle";
 
 export const SettingsModal = () => {
     const settings = useSettings(); 
