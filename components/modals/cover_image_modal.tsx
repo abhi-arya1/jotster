@@ -6,9 +6,45 @@ import {
     DialogHeader,
 } from "@/components/ui/dialog"; 
 import { useCoverImage } from "@/hooks/use_cover_image";
+import { SingleImageDropzone } from "../single_image_dropper";
+import { useState } from "react";
+import { useEdgeStore } from "@/lib/edgestore";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useParams } from "next/navigation";
+import { Id } from "@/convex/_generated/dataModel";
 
 export const CoverImageModal = () => {
+    const [file, setFile] = useState<File>();
+    const [isSubmitting, setSubmitting] = useState(false);
     const coverImage = useCoverImage(); 
+    const { edgestore } = useEdgeStore();
+    const update = useMutation(api.documents.update);
+    const params = useParams();
+
+    const onChange = async (file?: File) => {
+        if (file) {
+            setSubmitting(true);
+            setFile(file);
+
+            const res = await edgestore.publicFiles.upload({
+                file
+            });
+
+            await update({
+                id: params.documentId as Id<"documents">,
+                coverImage: res.url,
+            })
+
+            onClose();
+        }
+    }
+
+    const onClose = () => {
+        setFile(undefined);
+        setSubmitting(false);
+        coverImage.onClose()
+    }
 
     return (
         <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
@@ -19,7 +55,12 @@ export const CoverImageModal = () => {
                     </h2>
                 </DialogHeader>
                 <div>
-                    Todo: Upload Image
+                    <SingleImageDropzone
+                        className="w-full outline-none"
+                        disabled={isSubmitting}
+                        value={file}
+                        onChange={onChange}
+                    />
                 </div>
             </DialogContent>
         </Dialog>
