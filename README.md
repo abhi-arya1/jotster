@@ -5,6 +5,8 @@ Welcome to the repository for `Jotster`, an efficient and adaptive note taker in
 
 Jotster is built with TypeScript and TailwindCSS using Convex and Clerk for backend technologies. 
 
+Please note that this version of jotster uses the free version of Edgestore, so storage is limited and files may fill up quick, as the limit is capped at 1.5GB. If so, all files can and will be deleted for public beta and testing use. Please be aware of this before uploading secure files to Jotster. Thank you!
+
 **You can visit Jotster and start taking notes at [*jotster.vercel.app*](https://jotster.vercel.app)**
 
 ## Questions?
